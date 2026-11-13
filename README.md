@@ -82,26 +82,6 @@ Mac 上做好的 DMG 不能直接给 Windows 用，需要在 Windows 电脑上�
 | `windows/` | Windows 打包脚本 |
 | `make-dmg.sh` | 打包 macOS DMG |
 
-## 发布到 GitHub
-
-**仓库要以 `app` 这个文件夹为准，不要在有 `app` 的那一层初始化 Git** —— 外层目录里还有别的东西，会把它们一起传上去。
-
-1. 在 GitHub 网页上新建一个空仓库，**不要**勾选任何初始化文件（README、.gitignore、License 都不要勾）。
-2. 然后：
-
-```bash
-cd /path/to/clipflow/app
-git init
-git add .
-git commit -m "ClipFlow: a simple macOS clipboard manager in Rust + egui"
-git branch -M main
-git remote add origin https://github.com/<你的用户名>/<仓库名>.git
-git push -u origin main
-```
-
-`.gitignore` 已经排除了 `target/`、`build/`、`ClipFlow.app`、`*.dmg` 和 `.DS_Store`，这些不会被传上去。
-
-可选：把 `windows/github-actions-build-windows.yml` 复制成 `.github/workflows/build-windows.yml`，之后每次推送都会自动打一个 Windows 版。
 
 ## 许可证
 
