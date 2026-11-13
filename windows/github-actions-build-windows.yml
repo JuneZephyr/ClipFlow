@@ -1,0 +1,36 @@
+# Optional: build a Windows copy of ClipFlow on GitHub.
+# To use it, put this file at .github/workflows/build-windows.yml in a GitHub repository
+# that contains the project (with the app/ folder), then push. The finished .exe
+# appears under the run's "Artifacts" as clipflow-windows.
+name: build-windows
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            app/target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('app/Cargo.lock') }}
+
+      - name: Build
+        working-directory: app
+        run: cargo build --release
+
+      - name: Upload ClipFlow.exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: clipflow-windows
+          path: app/target/release/clipflow.exe

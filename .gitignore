@@ -1,0 +1,15 @@
+# Build output
+/target
+/build
+
+# Packaged app and disk image
+/ClipFlow.app
+*.dmg
+
+# macOS folder metadata
+.DS_Store
+
+# Editor
+.idea/
+.vscode/
+*.swp
